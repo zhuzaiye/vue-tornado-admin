@@ -1,8 +1,45 @@
 # vue-tornado-admin
 
-> vue+tornado+element
+> vue+tornado+element-ui
+> 前后不分离管理后台项目
+
+## 主要功能
+
+- 登录系统[目前做到这]
+- 注册系统
+- 管理页面
+- ...
+
+## 管理端展示
+
+![login-img](./web/assets/login.png)
+
+## 启动方式
+
+- Develop
+
+```shell
+# step 01
+yarn serve
+
+# step 02
+python serve/main.py
+```
+
+- Product
+
+```shell
+# step 01
+yarn build
+
+# step 02
+# 将整个serve打包成docker镜像
+```
 
 ## webpack单间vue项目
+
+1. 搭建server
+2. 搭建client
 
 - 安装vue框架包
 
