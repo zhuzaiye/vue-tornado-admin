@@ -28,7 +28,7 @@ console.log("login")
 export default {
   data() {
     return {
-      loginForm: {email: 'admin@xyz.com', password: '123456'},
+      loginForm: {email: 'admin@123.com', password: '123456'},
       rules: {
         email: [
           {required: true, message: '请输入邮箱', trigger: 'blur'},

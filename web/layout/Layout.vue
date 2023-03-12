@@ -5,12 +5,12 @@
     <el-container>
       <!--  头部    -->
       <el-header>
-        <div class="header-toggle" @click="toggleAside">
+        <div class="header-toggle" @click="">
           <div :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></div>
         </div>
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item v-for="(route, index) in keepAlive" :key="index">{{ route }}</el-breadcrumb-item>
+          <el-breadcrumb-item v-for="(route, index) in keepAlives" :key="index">{{ route }}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-dropdown @command="handleCommand" menu-align='start'>
           <img src="../assets/default.jpg" class="avator">
@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      keepAlive: [],
+      keepAlives: [],
       visible: true
     }
   },
@@ -52,7 +52,7 @@ export default {
     ...mapState('app', ['isCollapse']),
     include() {
       const include = []
-      this.keepAlive.forEach((route) => {
+      this.keepAlives.forEach((route) => {
         include.push(route.name)
       })
       return include
@@ -67,11 +67,6 @@ export default {
         localStorage.removeItem('token')
         this.$router.push('/login')
       }
-    },
-    toggleAside() {
-      this.$store.dispatch('app/toggleAside', {
-        withoutAnimation: false
-      })
     }
   }
 }

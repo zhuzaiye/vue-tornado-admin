@@ -1,73 +1,67 @@
 <template>
-  <div class="aside">
-    <transition name="aside-bg">
-      <div v-show="!isCollapse"
-           @click="toggleAside(false)"
-           class="aside-bg"
-      ></div>
-    </transition>
-    <div class="aside-nav" :class="asideClass">
-      <el-menu>
-        <el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-document"></i>数据管理</template>
-          <el-menu-item index="userList">用户列表</el-menu-item>
-          <el-menu-item index="shopList">商家列表</el-menu-item>
-          <el-menu-item index="foodList">食品列表</el-menu-item>
-          <el-menu-item index="orderList">订单列表</el-menu-item>
-          <el-menu-item index="adminList">管理员列表</el-menu-item>
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title"><i class="el-icon-plus"></i>添加数据</template>
-          <el-menu-item index="addShop">添加商铺</el-menu-item>
-          <el-menu-item index="addGoods">添加商品</el-menu-item>
-        </el-submenu>
-        <el-submenu index="4">
-          <template slot="title"><i class="el-icon-star-on"></i>图表</template>
-          <el-menu-item index="visitor">用户分布</el-menu-item>
-        </el-submenu>
-        <el-submenu index="5">
-          <template slot="title"><i class="el-icon-edit"></i>编辑</template>
-          <el-menu-item index="vueEdit">文本编辑</el-menu-item>
-        </el-submenu>
-        <el-submenu index="6">
-          <template slot="title"><i class="el-icon-setting"></i>设置</template>
-          <el-menu-item index="adminSet">管理员设置</el-menu-item>
-        </el-submenu>
-        <el-submenu index="7">
-          <template slot="title"><i class="el-icon-warning"></i>说明</template>
-          <el-menu-item index="explain">说明</el-menu-item>
-        </el-submenu>
-      </el-menu>
+    <div class="aside">
+        <transition name="aside-bg">
+            <div v-show="!isCollapse" @click="" class="aside-bg"></div>
+        </transition>
+        <div class="aside-nav" :class="asideClass">
+            <el-menu :collapse="isCollapse" :default-active="activePath" :collapse-transition="false">
+                <div v-for="(route, index) in routes" :key="index">
+                    <template v-if="!route.children"></template>
+                    <el-submenu v-else-if="route.children.length > 1" :index="route.path">
+                        <template slot="title">
+                            <i :class="route.meta.icon"></i>
+                            <span slot="title">{{ route.meta.title }}</span>
+                        </template>
+                        <el-menu-item-group>
+                            <template v-for="(child, childIndex) in route.children">
+                                <el-menu-item v-if="!child.meta.hidden" :index="`${route.path}/${child.path}`"
+                                    :key="childIndex" @click="routeTo(child, route)">
+                                    <i :class="child.meta.icon"></i>
+                                    {{ child.meta.title }}
+                                </el-menu-item>
+                            </template>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <template v-else-if="route.children.length == 1">
+                        <!-- 单一 -->
+                        <el-menu-item :index="`${route.path} == '/' ? '' : ${route.path}/${route.children[0].path}`"
+                            @click="routeTo(route.children[0], route)">
+                            <i :class="route.children[0].meta.icon"></i>
+                            <span slot="title">{{ route.children[0].meta.title }}</span>
+                        </el-menu-item>
+                    </template>
+                </div>
+            </el-menu>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  data() {
-  },
-  computed: {
-    isCollapse() {
-      return this.$store.state.app.isCollapse
+    data() {
+        return {
+            beforeHandlerState: false
+        }
     },
-    withoutAnimation() {
-      return this.$store.state.app.withoutAnimation
+    computed: {
+        isCollapse() {
+            return this.$store.state.app.isCollapse
+        },
+        asideClass() {
+            return {
+                'aside-is-collapse': this.isCollapse
+            }
+        }
     },
-    asideClass() {
-      return {
-        'aside-is-collapse': this.isCollapse,
-        'aside-without-animation': this.withoutAnimation
-      }
+    methods: {
+        routeTo(route, father) {
+            const beforePath = father ? father.path === '/' ? '/' : father.path + '/' : '';
+            const path = beforePath + route.path;
+            if (this.$route.fullPath === path) {
+                return this.$router.push({ path })
+            };
+        }
     }
-  },
-  methods: {
-    toggleAside(withoutAnimation) {
-      this.$store.dispatch('app/toggleAside', {
-        withoutAnimation: withoutAnimation
-      })
-    },
-  }
 }
 </script>
 
@@ -75,69 +69,35 @@ export default {
 // 导入混合样式文件
 //@import "../style/mixin";
 .aside {
-  .aside-bg {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: #000000;
-    opacity: 0.3;
-    z-index: 9;
-  }
-
-  .aside-nav {
-    border-right: solid 0.1px #e6e6e6;
-    box-sizing: content-box !important;
-    width: 200px;
-    height: 100vh;
-    transition: 0.3s;
-    position: relative;
-    z-index: 10;
-    background: #ffffff;
-  }
-
-  .el-menu {
-    border-right: 0 !important;
-    min-height: calc(100% - 60px) !important;
-  }
-}
-
-.aside-is-collapse {
-  width: 64px;
-
-  .aside-top {
-    .top-logo {
-      width: 46px;
+    .aside-bg {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: #000000;
+        opacity: 0.3;
+        z-index: 9;
     }
-  }
-}
 
-.aside-without-animation {
-  transition: 0s;
-
-  .aside-top {
-    .top-logo {
-      transition: 0s;
+    .aside-nav {
+        border-right: solid 0.1px #e6e6e6;
+        box-sizing: content-box !important;
+        width: 200px;
+        height: 100vh;
+        transition: 0.3s;
+        position: relative;
+        z-index: 10;
+        background: #ffffff;
     }
-  }
-}
 
-// 导航背景动画
-.aside-bg-enter-active {
-  transition: all 0.3s;
-}
-
-.aside-bg-leave-active {
-  transition: all 0.3s;
-}
-
-.aside-bg-enter,
-.aside-bg-leave-to {
-  opacity: 0;
+    .el-menu {
+        border-right: 0 !important;
+        min-height: calc(100% - 60px) !important;
+    }
 }
 
 .el-menu-item-group__title {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 </style>

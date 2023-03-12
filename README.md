@@ -1,13 +1,19 @@
 # vue-tornado-admin
 
 > vue+tornado+element-ui
-> 前后不分离管理后台项目
+>
+> 简易管理后台项目
+>
+> 通过webpack-5 搭建vue脚手架, 
 
 ## 主要功能
 
 - 登录系统[目前做到这]
 - 注册系统
 - 管理页面
+- 表单展示
+- 图标展示
+- 实时监控
 - ...
 
 ## 管理端展示
@@ -82,3 +88,7 @@ yarn add -D sass sass-loader css-loader style-loader
 ```shell
 touch webpack.config.js
 ```
+
+## vue-router 路由的使用
+
+> History API, Location API, 相关事件监听
