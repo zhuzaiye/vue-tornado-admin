@@ -25,7 +25,7 @@ const appModule = {
 const userModule = {
     state: {},
     actions: {
-        login({commit}, payload) {
+        login({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 login(payload).then(
                     (res) => {

@@ -59,7 +59,8 @@ const router = new VueRouter({
 
 // 路由鉴权--前置守卫
 router.beforeEach((to, from, next) => {
-    if (localStorage.getItem('token') || to.fullPath === '/login') {
+    // localStorage.getItem('token') ||
+    if (to.fullPath === '/login') {
         next()
     } else if (from.fullPath !== '/login') {
         router.push('/login')

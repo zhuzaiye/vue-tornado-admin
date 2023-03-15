@@ -17,18 +17,19 @@
             </el-button>
           </el-form-item>
         </el-form>
-        <p class="tip">未登录过的新用户，自动注册</p>
+        <p class="tip">未登录过的新用户, 自动注册</p>
       </section>
     </transition>
   </div>
 </template>
 
 <script>
-console.log("login")
+import {login} from "../router/api";
+
 export default {
   data() {
     return {
-      loginForm: {email: 'admin@123.com', password: '123456'},
+      loginForm: {email: '', password: ''},
       rules: {
         email: [
           {required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -46,11 +47,10 @@ export default {
       this.disabled = true
       this.isLoading = true
       const loginInfo = {
-        account: this.loginForm.email,
+        email: this.loginForm.email,
         password: this.loginForm.password
       }
-      console.log(this.$store)
-      this.$store.dispatch('/user/login', loginInfo).then((res) => {
+      login(loginInfo).then((res) => {
         this.$router.push({path: '/'})
       })
     }

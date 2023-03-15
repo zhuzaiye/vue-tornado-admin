@@ -2,10 +2,10 @@
 import axios from 'axios'
 import {Message} from 'element-ui'
 
-// 初始化一个实例 超时时间5000
-const instance = axios.create({
-    timeout: 5000
-})
+// 创建axios实例 设置超时时间5000
+const instance = axios.create({timeout: 5 * 1000});
+// 设置post请求头
+instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 // request
 instance.interceptors.request.use(
@@ -22,27 +22,23 @@ instance.interceptors.request.use(
 // response
 instance.interceptors.response.use(
     (response) => {
-        const res = response.data
-        if (res.status !== 200) {
+        let res = response.data;
+        console.log(res)
+        if (res.code !== 200) {
             Message({
-                message: res.Message || 'Error',
+                message: res.msg || 'Error',
                 type: 'error',
                 duration: 5 * 1000
             })
-
-            // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-            if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-                // do something
-            }
-            return Promise.reject(new Error(res.message || 'Error'))
+            return Promise.reject(res);
         } else {
-            return res.data
+            return Promise.resolve(res);
         }
     },
     (error) => {
         console.log('err' + error) // for debug
         Message({
-            message: error.message,
+            message: error.msg,
             type: 'error',
             duration: 5 * 1000
         })

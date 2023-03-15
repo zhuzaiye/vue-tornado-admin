@@ -11,7 +11,7 @@ const path = require('path');
 // 用于生成html文件，生成的文件会把项目依赖的js文件打包后加载进去
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const { VueLoaderPlugin } = require("vue-loader");
+const {VueLoaderPlugin} = require("vue-loader");
 const webpack = require("webpack");
 
 module.exports = {
@@ -85,7 +85,6 @@ module.exports = {
         // inline: true,
         compress: true,  // 启用 gzip compression
         hot: true,   // 启用 webpack 的 热模块替换 特性 webpack serve --hot/--no-hot
-        open: true  //告诉 dev-server 在服务器已经启动后打开浏览器 webpack serve --open
     },
     // 配置 plugin
     plugins: [

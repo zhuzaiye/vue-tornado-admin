@@ -18,11 +18,10 @@ settings = dict(
     # cookie_secret="FhLXI+BRRomtuaG47hoXEg3JCdi0BUi8vrpWmoxaoyI=",
     # xsrf_cookies=False,
     debug=conf.__DEBUG__,
-    login_url='/user/login'
+    # login_url='/user/login'
 )
 
 routers = [
-    # (r"/", MainHandler, dict(bundle_path=__BUNDLE_PATH__)),
     (r"/", MainHandler),
     (r"/user/login", LoginHandler),
     (r"/api/hello", HelloHandler)
