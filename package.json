@@ -27,7 +27,7 @@
     "vuex": "^3.6.1"
   },
   "scripts": {
-    "serve": "webpack-dev-server --mode development --config webpack.config.js",
-    "build": "webpack --mode=production --config webpack.config.js"
+    "dev": "webpack-dev-server --mode development --config webpack.dev.config.js",
+    "build": "webpack --mode production --config webpack.pro.config.js"
   }
 }

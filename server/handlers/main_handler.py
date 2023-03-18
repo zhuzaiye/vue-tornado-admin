@@ -32,10 +32,8 @@ class LoginHandler(BaseHandler):
         print(account, password)
         if account == "admin@123.com" and password == "123456":
             self.write(json.dumps({"code": 200, "msg": "ok", "token": "123"}))
-            self.redirect("/user/login")
         else:
-            self.write(json.dumps({"code": 200, "msg": "账号或者密码错误", "token": "123"}))
-            self.redirect("/")
+            self.write(json.dumps({"code": 200, "msg": "账号或者密码错误", "token": ""}))
 
 
 class AppHandler(BaseHandler):

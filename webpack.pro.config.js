@@ -1,12 +1,3 @@
-/*
-const path = require('path')
-module.exports = {
-  entry: ...,
-  output: ...,
-  module:[...],
-  plugins:[...]
-}
-* */
 const path = require('path');
 // 用于生成html文件，生成的文件会把项目依赖的js文件打包后加载进去
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -16,13 +7,15 @@ const webpack = require("webpack");
 
 module.exports = {
     // 开发模式
-    mode: 'development',
+    mode: 'production',
     // 定义入口文件路径 webpack依赖关系的起点文件
-    entry: path.resolve(__dirname, './web/main.js'),
+    entry: {
+        bundle: path.resolve(__dirname, './web/main.js')
+    },
     // 定义出口文件路径(webpack打包后文件存放路径指定)，为绝对路径 __dirname 为当前目录，通过引入 path 模块拼接路径
     output: {
-        path: path.resolve(__dirname, 'server/public/js'),
-        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'server/static/'), // 打包输出目录
+        filename: 'js/[name].js', // 打包输出名称
         clean: true, // 清空输出目录，webpack5开始可以直接配置清空，不再需要安装CleanWebpackPlugin
     },
     resolve: {
@@ -79,12 +72,6 @@ module.exports = {
                 },
             }
         ]
-    },
-    devServer: {
-        port: 8008, // 指定监听请求的端口号
-        // inline: true,
-        compress: true,  // 启用 gzip compression
-        hot: true,   // 启用 webpack 的 热模块替换 特性 webpack serve --hot/--no-hot
     },
     // 配置 plugin
     plugins: [

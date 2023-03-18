@@ -15,7 +15,7 @@ __IS_DEVELOP__ = False
 __HTTP_PORT__ = __CONFIG__.get_section_int("serve", "http_port")
 
 if __CONFIG__.get_section_value("npm", "run_mode") == "dev":
-    __BUNDLE_PATH__ = 'http://localhost:8008/bundle.js'
+    __BUNDLE_PATH__ = 'http://localhost:8080/bundle.js'
     __IS_DEVELOP__ = True
     __DEBUG__ = True
 

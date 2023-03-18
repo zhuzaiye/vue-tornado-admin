@@ -3,7 +3,9 @@ import axios from 'axios'
 import {Message} from 'element-ui'
 
 // 创建axios实例 设置超时时间5000
-const instance = axios.create({timeout: 5 * 1000});
+const instance = axios.create({
+    timeout: 12 * 1000
+});
 // 设置post请求头
 instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 

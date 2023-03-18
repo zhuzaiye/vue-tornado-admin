@@ -14,7 +14,7 @@ from handlers.main_handler import MainHandler, HelloHandler, LoginHandler
 
 settings = dict(
     template_path=os.path.join(conf.__FILE__, "views"),
-    static_path=os.path.join(conf.__FILE__, "public"),
+    static_path=os.path.join(conf.__FILE__, "static"),
     # cookie_secret="FhLXI+BRRomtuaG47hoXEg3JCdi0BUi8vrpWmoxaoyI=",
     # xsrf_cookies=False,
     debug=conf.__DEBUG__,
@@ -23,7 +23,7 @@ settings = dict(
 
 routers = [
     (r"/", MainHandler),
-    (r"/user/login", LoginHandler),
+    (r"/api/login", LoginHandler),
     (r"/api/hello", HelloHandler)
 ]
 

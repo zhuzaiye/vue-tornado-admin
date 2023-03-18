@@ -13,7 +13,7 @@
           <el-breadcrumb-item v-for="(route, index) in keepAlives" :key="index">{{ route }}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-dropdown @command="handleCommand" menu-align='start'>
-          <img src="../assets/default.jpg" class="avator">
+          <img src="../assets/logo.png" class="avator">
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="person">个人</el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>

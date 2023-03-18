@@ -26,5 +26,6 @@ node_modules
 /site
 
 # buit bundle
-server/public/*
+public/*
 .cache/
+server/static/*

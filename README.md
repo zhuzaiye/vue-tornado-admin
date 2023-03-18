@@ -18,7 +18,7 @@
 
 ## 管理端展示
 
-![login-img](./web/assets/login.png)
+![login-img](docs/images/login.png)
 
 ## 启动方式
 
@@ -86,7 +86,7 @@ yarn add -D sass sass-loader css-loader style-loader
 - vue框架配置文件
 
 ```shell
-touch webpack.config.js
+touch webpack.pro.config.js
 ```
 
 ## vue-router 路由的使用

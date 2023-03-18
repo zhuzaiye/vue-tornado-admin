@@ -3,7 +3,7 @@ import request from "./request";
 
 export function login(data) {
     return request({
-        url: '/user/login',
+        url: '/api/login',
         method: 'post',
         data
     })
