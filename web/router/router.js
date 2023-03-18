@@ -2,14 +2,21 @@
 import Vue from 'vue';
 // 引入vue-router
 import VueRouter from 'vue-router';
-// 引入路由相关组件
-import Login from '../page/Login';
+// 引入layout frame component
 import Layout from "../layout/Layout";
+// 引入app component
+import Login from '../page/Login';
 import Home from "../page/Home";
+import Hello from "../page/Hello";
 
 Vue.use(VueRouter)
 
-const routes = [
+export const routes = [
+    {
+        path: "/hello",
+        name: "hello",
+        component: Hello,
+    },
     {
         path: '/login',
         name: "Login",
@@ -17,7 +24,6 @@ const routes = [
     },
     {
         path: '/',
-        // 基础组件 Layout
         component: Layout,
         redirect: '/home',
         children: [
@@ -25,29 +31,8 @@ const routes = [
                 path: 'home',
                 name: 'Home',
                 component: Home,
-                meta: { title: '首页', icon: 'el-icon-s-home' },
-                props: ({ params }) => params
-            }
-        ]
-    },
-    {
-        path: '/list',
-        component: Layout,
-        meta: { title: '表单', icon: 'el-icon-s-order' },
-        children: [
-            {
-                path: 'detail',
-                name: 'TradeDetail',
-                component: Home,
-                meta: { title: '详情页', icon: 'el-icon-c-scale-to-original' },
-                props: ({ params }) => params
-            },
-            {
-                path: 'persion',
-                name: 'MemberDetail',
-                component: Home,
-                meta: { title: '个人资料', icon: 'el-icon-user' },
-                props: ({ params }) => params
+                meta: {title: 'Home', icon: 'el-icon-s-home'},
+                props: ({params}) => params
             }
         ]
     }
@@ -58,13 +43,13 @@ const router = new VueRouter({
 })
 
 // 路由鉴权--前置守卫
-router.beforeEach((to, from, next) => {
-    // localStorage.getItem('token') ||
-    if (to.fullPath === '/login') {
-        next()
-    } else if (from.fullPath !== '/login') {
-        router.push('/login')
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     // localStorage.getItem('token') ||
+//     if (to.fullPath === '/login') {
+//         next()
+//     } else if (from.fullPath !== '/login') {
+//         router.push('/login')
+//     }
+// })
 
 export default router

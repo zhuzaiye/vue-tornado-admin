@@ -2,7 +2,7 @@
 // 使用单一状态树会导致所有状态都集中到一个较大对象中, 应用复杂就会导致store对象臃肿
 // 于是，vuex通过module将store拆分成模块，每个模块拥有自己的state,mutation,action.getter
 
-import {login} from "../router/api";
+import {login} from "../apis/api";
 
 const appModule = {
     state: {
@@ -16,7 +16,6 @@ const appModule = {
     mutations: {
         TOGGLE_ASIDE(state, payload) {
             state.isCollapse = !state.isCollapse
-            if (payload) state.withoutAnimation = payload.withoutAnimation
         }
     },
     getter: {}
@@ -25,11 +24,11 @@ const appModule = {
 const userModule = {
     state: {},
     actions: {
-        login({ commit }, payload) {
+        Login({commit}, payload) {
             return new Promise((resolve, reject) => {
                 login(payload).then(
-                    (res) => {
-                        commit('SET_DATA', res)
+                    (response) => {
+                        commit('SET_TOKEN', response.data.token)
                         resolve()
                     }
                 ).catch((error) => {
@@ -39,13 +38,12 @@ const userModule = {
         }
     },
     mutations: {
-        SET_DATA(state, res) {
+        SET_TOKEN(state, res) {
             localStorage.setItem('token', res.token)
         }
     },
     getter: {}
 }
-
 
 
 export {appModule, userModule}

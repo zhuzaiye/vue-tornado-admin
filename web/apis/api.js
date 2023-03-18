@@ -1,7 +1,7 @@
 // 后端路由定义
 import request from "./request";
 
-export function login(data) {
+export const login = (data) => {
     return request({
         url: '/api/login',
         method: 'post',
@@ -9,7 +9,8 @@ export function login(data) {
     })
 }
 
-export function sayHello() {
+
+export const sayHello = () => {
     return request({
         url: '/api/hello',
         method: 'get',

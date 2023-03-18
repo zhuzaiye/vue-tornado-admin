@@ -1,19 +1,19 @@
 <template>
   <el-container class="layout">
     <!--  侧边栏导航  -->
-    <aside-nav/>
+    <AsideNav/>
     <el-container>
       <!--  头部    -->
       <el-header>
         <div class="header-toggle" @click="">
-          <div :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></div>
+          <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
         </div>
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item v-for="(route, index) in keepAlives" :key="index">{{ route }}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-dropdown @command="handleCommand" menu-align='start'>
-          <img src="../assets/logo.png" class="avator">
+          <div class="block"><el-avatar :size="small" :src="avatarUrl"></el-avatar></div>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="person">个人</el-dropdown-item>
             <el-dropdown-item command="logout">退出</el-dropdown-item>
@@ -45,11 +45,12 @@ export default {
   data() {
     return {
       keepAlives: [],
-      visible: true
+      visible: true,
+      avatarUrl: "/assets/logo.png"
     }
   },
   computed: {
-    ...mapState('app', ['isCollapse']),
+    ...mapState(['isCollapse']),
     include() {
       const include = []
       this.keepAlives.forEach((route) => {

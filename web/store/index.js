@@ -1,7 +1,8 @@
 // https://v3.vuex.vuejs.org/
-import Vue from 'vue'
-import Vuex from 'vuex'
-import {appModule, userModule} from './modules'
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import {appModule, userModule} from './modules';
 
 Vue.use(Vuex)
 

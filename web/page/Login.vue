@@ -24,12 +24,10 @@
 </template>
 
 <script>
-import {login} from "../router/api";
-
 export default {
   data() {
     return {
-      loginForm: {email: '', password: ''},
+      loginForm: {email: 'hzzhu2@ifytek.com', password: '123456'},
       rules: {
         email: [
           {required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -50,8 +48,11 @@ export default {
         email: this.loginForm.email,
         password: this.loginForm.password
       }
-      login(loginInfo).then((res) => {
+      this.$store.dispatch("Login", loginInfo).then(() => {
         this.$router.push({path: '/'})
+      }).catch(err => {
+        this.isLoading = false;
+        this.$message.error(err); //登录失败提示错误
       })
     }
   }

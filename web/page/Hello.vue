@@ -5,15 +5,11 @@
 </template>
 
 <script>
-import {sayHello} from '../router/api'
+import {sayHello} from '../apis/api'
 
 export default {
   data() {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       msg: 'Hello World!'
     }
   },
@@ -22,7 +18,7 @@ export default {
     fetchData() {
       sayHello().then((res) => {
         console.log(res)
-        this.msg = res.hello
+        this.msg = res.data.hello;
       })
     }
   },
