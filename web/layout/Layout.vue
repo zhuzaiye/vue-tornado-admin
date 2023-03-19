@@ -1,34 +1,39 @@
 <template>
-  <el-container class="layout">
-    <!--  侧边栏导航  -->
-    <AsideNav/>
-    <el-container>
-      <!--  头部    -->
-      <el-header>
-        <div class="header-toggle" @click="">
-          <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
-        </div>
+  <el-container>
+    <el-header height="60px">
+      <a class="logo" href="/">资源管理系统</a>
+      <!-- 折叠菜单按钮 -->
+      <div class="toggle" @click="">
+        <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+      </div>
+      <!-- 下拉式配置 -->
+      <el-dropdown @command="handleCommand">
+        <i class="el-icon-setting" style="margin-right: 15px"></i>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="person">个人</el-dropdown-item>
+          <el-dropdown-item command="logout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+
+      <div class="keep-alive">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item v-for="(route, index) in keepAlives" :key="index">{{ route }}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-dropdown @command="handleCommand" menu-align='start'>
-          <div class="block"><el-avatar :size="small" :src="avatarUrl"></el-avatar></div>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="person">个人</el-dropdown-item>
-            <el-dropdown-item command="logout">退出</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </el-header>
-      <!--  内容    -->
+      </div>
+    </el-header>
+
+    <el-container>
+      <el-aside width="auto">
+        <AsideNav></AsideNav>
+      </el-aside>
+
       <el-main>
-        <div class="app-main">
-          <transition name="el-fade-in">
-            <keep-alive :include="include">
-              <router-view></router-view>
-            </keep-alive>
-          </transition>
-        </div>
+        <transition name="el-fade-in">
+          <keep-alive :include="include">
+            <router-view></router-view>
+          </keep-alive>
+        </transition>
       </el-main>
     </el-container>
   </el-container>
@@ -46,7 +51,6 @@ export default {
     return {
       keepAlives: [],
       visible: true,
-      avatarUrl: "/assets/logo.png"
     }
   },
   computed: {
@@ -74,40 +78,95 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout {
-  .el-header {
-    background-color: #ffffff;
-    color: #333;
-    text-align: center;
-    height: 95px !important;
-    padding: 0;
-    z-index: 2;
-  }
+// 占满全屏
+.el-container {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
 
-  .el-main {
-    background-color: #f5f5f5;
-    color: #333;
-    height: calc(100vh - 95px);
-    overflow: hidden;
-    padding: 0 !important;
+/*上外边距50px，防止挡住Header*/
+.el-aside, .el-main {
+  margin-top: 50px;
+}
 
-    .app-main {
-      padding: 30px;
-    }
-  }
+/*设置背景色，方便观察效果*/
+.el-header {
+  background-color: #B3C0D1;
+  color: #333;
+  /* 上层显示，避免被Main和Aside遮挡 */
+  z-index: 999;
+}
 
-  .slide-fade-enter-active {
-    transition: all 0.4s;
-  }
+.el-aside {
+  background-color: #545c64;
+}
 
-  .slide-fade-leave-active {
-    transition: all 0.4s;
-  }
+.el-main {
+  background-color: #eee;
+}
 
-  .slide-fade-enter,
-  .slide-fade-leave-to {
-    transform: translateX(15px);
-    opacity: 0;
-  }
+/* 去除菜单右侧边框 */
+.el-menu {
+  border-right: none;
+}
+
+/* 设置展开时菜单宽度 */
+.el-menu-vertical:not(.el-menu--collapse) {
+  width: 230px;
+}
+
+.logo {
+  color: #fff;
+  text-align: center;
+  font-size: 26px;
+  line-height: 50px;
+  padding: 0 15px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.toggle {
+  color: #fff;
+  text-align: center;
+  font-size: 26px;
+  line-height: 60px;
+  display: inline-block;
+  padding: 0 15px;
+  border-left: solid 1px #ccc;
+  position: absolute;
+  left: 230px;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  background-color: #ffd04b;
+}
+
+/* 下拉菜单 */
+.el-dropdown {
+  color: #fff;
+  text-align: center;
+  font-size: 26px;
+  line-height: 50px;
+  float: right;
+}
+
+.keep-alive {
+  color: #1f1d1d;
+  text-align: center;
+  font-size: 26px;
+  line-height: 60px;
+  display: inline-block;
+  padding: 25px 25px;
+  position: absolute;
+  left: 260px;
+}
+
+.keep-alive:hover {
+  //background-color: #ffd04b;
+  color: rgb(255, 255, 255);
 }
 </style>

@@ -1,34 +1,33 @@
 <template>
-  <el-menu default-active="1-4-1" text-color="#fff" active-text-color="#ffd04b" class="el-menu-vertical"
-           @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-
+  <el-menu default-active="2" class="el-menu-vertical" background-color="#545c64" text-color="#fff"
+           active-text-color="#ffd04b" :collapse="isCollapse">
     <template v-for="(route, index) in routes">
       <template v-if="!route.children"></template>
-      <el-submenu v-else-if="route.children.length > 1" :index="route.path">
+
+      <el-submenu v-else-if="route.children.length>1" :index="route.path">
         <template slot="title">
           <i :class="route.meta.icon"></i>
-          <span slot="title">{{ route.meta.title }}</span>
+          <span>{{ route.meta.title }}</span>
         </template>
         <el-menu-item-group>
-          <template v-for="(child, childIndex) in route.children">
-            <el-menu-item v-if="!child.meta.hidden" :index="`${route.path}/${child.path}`"
-                          :key="childIndex" @click="routeTo(child, route)">
-              <i :class="child.meta.icon"></i>
-              {{ child.meta.title }}
-            </el-menu-item>
-          </template>
+          <el-menu-item v-for="(child, childIndex) in route.children"
+                        :index="`${route.path}/${child.path}`"
+                        :key="childIndex"
+                        @click="routeTo(child, route)">
+            {{ child.meta.title }}
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
 
-      <template v-else-if="route.children.length == 1">
-        <!-- 单一 -->
-        <el-menu-item :index="`${route.path} == '/' ? '' : ${route.path}/${route.children[0].path}`"
-                      @click="routeTo(route.children[0], route)">
-          <i :class="route.children[0].meta.icon"></i>
-          <span slot="title">{{ route.children[0].meta.title }}</span>
-        </el-menu-item>
-      </template>
+      <el-menu-item v-else-if="route.children.length===1"
+                    :index="`${route.path} == '/' ? '' : ${route.path}/${route.children[0].path}`"
+                    @click="routeTo(route.children[0], route)">
+        <i :class="route.children[0].meta.icon"></i>
+        <span slot="title">{{ route.children[0].meta.title }}</span>
+      </el-menu-item>
+
     </template>
+
   </el-menu>
 </template>
 
@@ -47,11 +46,6 @@ export default {
     isCollapse() {
       console.log(this.$store.state.isCollapse)
       return this.$store.state.isCollapse
-    },
-    asideClass() {
-      return {
-        'aside-is-collapse': this.isCollapse
-      }
     }
   },
   methods: {
@@ -69,15 +63,4 @@ export default {
 <style lang="scss" scoped>
 // 导入混合样式文件
 //@import "../style/mixin";
-
-.el-menu-vertical {
-  width: 200px;
-  border-right: 0 !important;
-  min-height: calc(100% - 60px) !important;
-  background-color: #545c64;
-}
-
-.el-menu-item-group__title {
-  padding: 0 !important;
-}
 </style>

@@ -28,4 +28,4 @@ node_modules
 # buit bundle
 public/*
 .cache/
-server/static/*
+server/public/*

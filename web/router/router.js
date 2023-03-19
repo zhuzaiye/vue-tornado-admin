@@ -13,11 +13,6 @@ Vue.use(VueRouter)
 
 export const routes = [
     {
-        path: "/hello",
-        name: "hello",
-        component: Hello,
-    },
-    {
         path: '/login',
         name: "Login",
         component: Login
@@ -31,7 +26,28 @@ export const routes = [
                 path: 'home',
                 name: 'Home',
                 component: Home,
-                meta: {title: 'Home', icon: 'el-icon-s-home'},
+                meta: {title: '首页', icon: 'el-icon-s-home'},
+                props: ({params}) => params
+            }
+        ]
+    },
+    {
+        path: '/about',
+        component: Layout,
+        meta: {"title": '测试', icon: 'el-icon-view'},
+        children: [
+            {
+                path: 'hello',
+                name: 'Hello',
+                component: Hello,
+                meta: {title: 'Hello', icon: 'el-icon-chat-line-round'},
+                props: ({params}) => params
+            },
+            {
+                path: 'hello',
+                name: 'Hello',
+                component: Hello,
+                meta: {title: 'Hello', icon: 'el-icon-chat-line-round'},
                 props: ({params}) => params
             }
         ]
