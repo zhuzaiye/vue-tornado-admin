@@ -27,10 +27,11 @@
 ```shell
 # step 01
 # 修改server/config/config.init 将run_mode=dev启动
-# step 01
-yarn dev
 
 # step 02
+yarn dev
+
+# step 03
 python serve/main.py
 ```
 
@@ -94,7 +95,7 @@ yarn add element-ui
 yarn add -D sass sass-loader css-loader style-loader url-loader
 ```
 
-- ![vue框架配置文件](webpack.config.js)
+- #[vue框架配置文件](webpack.config.js)
 
 ```shell
 touch webpack.pro.config.js
