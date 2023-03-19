@@ -8,7 +8,7 @@
       </div>
       <!-- 下拉式配置 -->
       <el-dropdown @command="handleCommand">
-        <i class="el-icon-setting" style="margin-right: 15px"></i>
+        <i class="el-icon-setting" style="margin-right: 15px;margin-top: 15px;"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="person">个人</el-dropdown-item>
           <el-dropdown-item command="logout">退出</el-dropdown-item>
@@ -106,6 +106,7 @@ export default {
 
 .el-main {
   background-color: #eee;
+  text-align: center;
 }
 
 /* 去除菜单右侧边框 */
@@ -119,7 +120,7 @@ export default {
 }
 
 .logo {
-  color: #fff;
+  color: #07145b;
   text-align: center;
   font-size: 26px;
   line-height: 50px;
@@ -129,7 +130,7 @@ export default {
 }
 
 .toggle {
-  color: #fff;
+  color: #000000;
   text-align: center;
   font-size: 26px;
   line-height: 60px;
@@ -147,7 +148,7 @@ export default {
 
 /* 下拉菜单 */
 .el-dropdown {
-  color: #fff;
+  color: #000000;
   text-align: center;
   font-size: 26px;
   line-height: 50px;
@@ -155,7 +156,7 @@ export default {
 }
 
 .keep-alive {
-  color: #1f1d1d;
+  //color: #303133;
   text-align: center;
   font-size: 26px;
   line-height: 60px;

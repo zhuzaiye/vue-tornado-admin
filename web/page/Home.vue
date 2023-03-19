@@ -2,22 +2,22 @@
   <div>
     <section class="data_section">
       <header class="section_title">数据统计</header>
-      <el-row :gutter="20" style="margin-bottom: 10px;">
-        <el-col :span="4">
+      <el-row :gutter="20">
+        <el-col :span="4" :offset="4">
           <div class="data_list today_head"><span class="data_num head">当日数据：</span></div>
         </el-col>
         <el-col :span="4">
-          <div class="data_list"><span class="data_num">{{ userCount }}</span> 新增用户</div>
+          <div class="data_list"><span class="data_num">{{ generationCount }}</span> 生成任务</div>
         </el-col>
         <el-col :span="4">
-          <div class="data_list"><span class="data_num">{{ orderCount }}</span> 新增订单</div>
+          <div class="data_list"><span class="data_num">{{ resourceCount }}</span> 资源套数</div>
         </el-col>
         <el-col :span="4">
-          <div class="data_list"><span class="data_num">{{ adminCount }}</span> 新增管理员</div>
+          <div class="data_list"><span class="data_num">{{ missionCount }}</span> 部署任务</div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="4">
+        <el-col :span="4" :offset="4">
           <div class="data_list all_head"><span class="data_num head">总数据：</span></div>
         </el-col>
         <el-col :span="4">
@@ -41,11 +41,11 @@ export default {
   components: {},
   data() {
     return {
-      userCount: 12,
-      orderCount: 20,
-      adminCount: 4,
-      allUserCount: 7000,
-      allOrderCount: 80000,
+      generationCount: 12,
+      resourceCount: 250,
+      missionCount: 4,
+      allUserCount: 100,
+      allOrderCount: 800,
       allAdminCount: 300,
     }
   },
@@ -54,7 +54,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../style/mixin';
 
 .data_section {
   padding: 20px;
@@ -93,6 +92,14 @@ export default {
 
   .all_head {
     background: #20A0FF;
+  }
+
+  .el-row {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 </style>
