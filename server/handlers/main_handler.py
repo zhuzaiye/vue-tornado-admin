@@ -17,7 +17,7 @@ class MainHandler(BaseHandler):
 
 class HelloHandler(BaseHandler):
     def get(self):
-        self.write({'hello': 'really?'})
+        self.write({"code": 200, "msg": "ok", 'data': '加载成功'})
 
 
 class LoginHandler(BaseHandler):
@@ -26,6 +26,6 @@ class LoginHandler(BaseHandler):
         password = self.get_argument("password", None)
         print(account, password)
         if account == "hzzhu2@ifytek.com" and password == "123456":
-            self.write(json.dumps({"code": 200, "msg": "ok", "token": "123"}))
+            self.write(json.dumps({"code": 200, "msg": "ok", "data": {"token": "123"}}))
         else:
-            self.write(json.dumps({"code": 200, "msg": "账号或者密码错误", "token": ""}))
+            self.write(json.dumps({"code": 400, "msg": "账号或者密码错误", "data": {"token": ""}}))

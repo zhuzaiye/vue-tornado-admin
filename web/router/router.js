@@ -8,13 +8,19 @@ import Layout from "../layout/Layout";
 import Login from '../page/Login';
 import Home from "../page/Home";
 import Hello from "../page/Hello";
+import Form from "../page/Table";
+import Todo from "../page/Todo";
 
 Vue.use(VueRouter)
+
+const VueRouterPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(to) {
+    return VueRouterPush.call(this, to).catch(err => err)
+}
 
 export const routes = [
     {
         path: '/login',
-        name: "Login",
         component: Login
     },
     {
@@ -35,19 +41,28 @@ export const routes = [
         path: '/about',
         component: Layout,
         meta: {"title": '测试', icon: 'el-icon-view'},
+        // 总是跳到第一个child
+        redirect: '/about/todo',
         children: [
             {
-                path: 'hello',
-                name: 'Hello',
-                component: Hello,
-                meta: {title: 'Hello', icon: 'el-icon-chat-line-round'},
+                path: 'todo',
+                name: 'Todo',
+                component: Todo,
+                meta: {title: '测试VUE', icon: 'el-icon-chat-line-round'},
                 props: ({params}) => params
             },
             {
                 path: 'hello',
                 name: 'Hello',
                 component: Hello,
-                meta: {title: 'Hello', icon: 'el-icon-chat-line-round'},
+                meta: {title: '测试请求', icon: 'el-icon-chat-line-round'},
+                props: ({params}) => params
+            },
+            {
+                path: 'list',
+                name: 'Form',
+                component: Form,
+                meta: {title: '测试表单', icon: 'el-icon-chat-line-round'},
                 props: ({params}) => params
             }
         ]

@@ -88,16 +88,15 @@ function responseError(response) {
 axiosServer.interceptors.response.use(
     (response) => {
         let data = response.data;
-        console.log(data);
 
         if (data.code !== 200) {
             let errmsg = data.msg || 'Error';
             Message({
                 message: data.msg || 'Error',
-                type: 'error',
+                type: 'warning',
                 duration: 5 * 1000
             })
-            return Promise.reject(errmsg);
+            return Promise.reject().then().catch();
         }
         return Promise.resolve(data);
 

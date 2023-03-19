@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header height="60px">
-      <a class="logo" href="/">资源管理系统</a>
+      <a class="logo" href="/">后台管理系统</a>
       <!-- 折叠菜单按钮 -->
       <div class="toggle" @click="">
         <i :class="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
@@ -16,9 +16,11 @@
       </el-dropdown>
 
       <div class="keep-alive">
-        <el-breadcrumb separator="/">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item v-for="(route, index) in keepAlives" :key="index">{{ route }}</el-breadcrumb-item>
+          <el-breadcrumb-item v-for="(route, index) in breadList" :key="index" :to="{ path: route.path }">
+            {{ route.meta.title }}
+          </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
     </el-header>
@@ -29,8 +31,8 @@
       </el-aside>
 
       <el-main>
-        <transition name="el-fade-in">
-          <keep-alive :include="include">
+        <transition name="el-fade-in-linear">
+          <keep-alive>
             <router-view></router-view>
           </keep-alive>
         </transition>
@@ -49,21 +51,29 @@ export default {
   },
   data() {
     return {
-      keepAlives: [],
       visible: true,
+      breadList: [] // 路由集合
     }
   },
   computed: {
     ...mapState(['isCollapse']),
-    include() {
-      const include = []
-      this.keepAlives.forEach((route) => {
-        include.push(route.name)
-      })
-      return include
+  },
+  watch: {
+    $route() {
+      this.getBreadcrumb();
     }
   },
   methods: {
+    isHome(route) {
+      return route.name === "Home";
+    },
+    getBreadcrumb() {
+      let matched = this.$route.matched;
+      if (!this.isHome(matched[0])) {
+        matched = [].concat(matched)
+      }
+      this.breadList = matched;
+    },
     handleCommand(command) {
       console.log(command)
       if (command === 'person') {
@@ -73,6 +83,9 @@ export default {
         this.$router.push('/login')
       }
     }
+  },
+  created() {
+    this.getBreadcrumb();
   }
 }
 </script>
@@ -94,7 +107,7 @@ export default {
 
 /*设置背景色，方便观察效果*/
 .el-header {
-  background-color: #B3C0D1;
+  background-color: #b8dfe3;
   color: #333;
   /* 上层显示，避免被Main和Aside遮挡 */
   z-index: 999;
@@ -124,7 +137,7 @@ export default {
   text-align: center;
   font-size: 26px;
   line-height: 50px;
-  padding: 0 15px;
+  padding: 15px 15px;
   font-weight: 400;
   text-decoration: none;
 }

@@ -15,9 +15,9 @@ module.exports = {
     },
     resolve: {
         modules: [__dirname, 'node_modules'],
-        // alias: {
-        //     "@": path.resolve(__dirname, './vue')  // @替换vue
-        // },
+        alias: {
+            vue$: 'vue/dist/vue.esm.js',
+        },
         extensions: ['*', '.js', '.vue']
     },
     // 配置 loader
