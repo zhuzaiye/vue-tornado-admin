@@ -33,4 +33,5 @@ class LoginHandler(BaseHandler):
 class LogoutHandler(BaseHandler):
     def post(self):
         # 删除数据库token
+        print("清除缓存token")
         self.write(json.dumps({"code": 200, "msg": "ok", "data": {}}))

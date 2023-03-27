@@ -44,6 +44,7 @@
 <script>
 import AsideNav from "./AsideNav";
 import {mapState} from 'vuex';
+import {logout} from "../apis/api";
 
 export default {
   components: {
@@ -79,6 +80,7 @@ export default {
       if (command === 'person') {
         this.$router.push({name: 'MemberDetail'})
       } else {
+        logout();
         localStorage.removeItem('token')
         this.$router.push('/login')
       }
