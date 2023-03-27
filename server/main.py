@@ -9,7 +9,7 @@ import tornado.ioloop
 import tornado.httpserver
 
 from utils.setting import ConfigParse
-from handlers.main_handler import MainHandler, HelloHandler, LoginHandler
+from handlers.main_handler import MainHandler, HelloHandler, LoginHandler, LogoutHandler
 
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "public"),
@@ -26,6 +26,7 @@ def make_app(bundle_path, debug):
             (r"/", MainHandler, dict(bundle_path=bundle_path)),
             (r".*/api/hello", HelloHandler),
             (r".*/api/login", LoginHandler),
+            (r".*/api/logout", LogoutHandler),
             (r"/(favicon.ico)", tornado.web.StaticFileHandler,
              dict(path=settings['static_path'])),
         ], **settings)

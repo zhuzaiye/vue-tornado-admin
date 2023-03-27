@@ -24,8 +24,13 @@ class LoginHandler(BaseHandler):
     def post(self):
         account = self.get_argument("email", None)
         password = self.get_argument("password", None)
-        print(account, password)
         if account == "hzzhu2@ifytek.com" and password == "123456":
             self.write(json.dumps({"code": 200, "msg": "ok", "data": {"token": "123"}}))
         else:
             self.write(json.dumps({"code": 400, "msg": "账号或者密码错误", "data": {"token": ""}}))
+
+
+class LogoutHandler(BaseHandler):
+    def post(self):
+        # 删除数据库token
+        self.write(json.dumps({"code": 200, "msg": "ok", "data": {}}))

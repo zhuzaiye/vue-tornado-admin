@@ -3,13 +3,21 @@ import request from "./request";
 
 
 export const login = (data) => {
-    console.log("api+login_", data)
     return request({
         url: '/api/login',
         method: 'post',
         data: data,
     })
 }
+
+export const logout = (data) => {
+    return request({
+        url: '/api/logout',
+        method: 'post',
+        data: data,
+    })
+}
+
 
 
 export const sayHello = (params) => {
