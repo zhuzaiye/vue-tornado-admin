@@ -12,8 +12,8 @@ const axiosServer = axios.create({
     timeout: 30000,
     // 设置请求头
     headers: {
-        get: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
-        post: {'Content-Type': 'application/json;charset=utf-8'}
+        post: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+        get: {'Content-Type': 'application/json;charset=utf-8'},
     },
 });
 

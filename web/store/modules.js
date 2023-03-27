@@ -26,9 +26,9 @@ const userModule = {
     actions: {
         Login({commit}, payload) {
             return new Promise((resolve, reject) => {
-                login(payload).then(
-                    (response) => {
-                        commit('SET_TOKEN', response.data.token)
+                login(payload).then(response => {
+                        console.log("login_api_response", response);
+                        commit('SET_TOKEN', response.data)
                         resolve()
                     }
                 ).catch((error) => {

@@ -74,13 +74,20 @@ const router = new VueRouter({
 })
 
 // 路由鉴权--前置守卫
-// router.beforeEach((to, from, next) => {
-//     // localStorage.getItem('token') ||
-//     if (to.fullPath === '/login') {
-//         next()
-//     } else if (from.fullPath !== '/login') {
-//         router.push('/login')
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    // 如果路由指向login 放行
+    if (to.path === '/login') {
+        next();
+    } else {
+        // 如果不指向login, 先获取token
+        let token = localStorage.getItem('token');
+        // token 为空或者不存在 返回登录, 否则放行
+        if (token === null || token === '') {
+            next('/login');
+        } else {
+            next();
+        }
+    }
+})
 
 export default router
