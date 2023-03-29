@@ -9,31 +9,31 @@ import tornado.ioloop
 import tornado.httpserver
 
 from utils.setting import ConfigParse
-from handlers.main_handler import MainHandler, HelloHandler, LoginHandler, LogoutHandler
+from handlers.routers import router
 
+# 项目配置文件路径
+__CONFIG_PATH__ = os.path.join(os.path.dirname(__file__), "config/config.ini")
+
+# tornado配置项
 settings = {
     "static_path": os.path.join(os.path.dirname(__file__), "public"),
     "template_path": os.path.join(os.path.dirname(__file__), "views"),
-    # "login_url": "/login",
-    # "xsrf_cookies": True,
 }
+
+# 加载配置
+conf = ConfigParse(__CONFIG_PATH__)
 
 
 def make_app(bundle_path, debug):
+    routers = router(bundle_path, settings['static_path'])
     return tornado.web.Application(
         debug=debug,
-        handlers=[
-            (r"/", MainHandler, dict(bundle_path=bundle_path)),
-            (r".*/api/hello", HelloHandler),
-            (r".*/api/login", LoginHandler),
-            (r".*/api/logout", LogoutHandler),
-            (r"/(favicon.ico)", tornado.web.StaticFileHandler,
-             dict(path=settings['static_path'])),
-        ], **settings)
+        handlers=routers,
+        **settings
+    )
 
 
 if __name__ == '__main__':
-    conf = ConfigParse(os.path.join(os.path.dirname(__file__), "config/config.ini"))
     debug = False
     bundle_path = '/static/js/bundle.js'
     if conf.get_section_value("serve", "run_mode") == 'dev':
