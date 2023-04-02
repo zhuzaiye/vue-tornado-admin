@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 # DESC:
 
-import json
-
-from .base_handler import BaseHandler
+from handlers.base_handler import BaseHandler
 
 
 class MainHandler(BaseHandler):
@@ -17,6 +15,8 @@ class MainHandler(BaseHandler):
 
 class HelloHandler(BaseHandler):
     def get(self):
-        self.write({"code": 200, "msg": "ok", 'data': '加载成功'})
+        user_id = self.get_user()
+        print(user_id)
+        self.write_ok(f'加载成功 user_id={user_id}')
 
 

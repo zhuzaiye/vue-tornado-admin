@@ -4,8 +4,8 @@
 
 import tornado.web
 
-from .main_handler import MainHandler, HelloHandler
-from .user_handler import LoginHandler, LogoutHandler
+from handlers.main_handler import MainHandler, HelloHandler
+from handlers.user_handler import LoginHandler, LogoutHandler
 
 
 def router(bundle_path: str, static_path: str):
