@@ -36,8 +36,6 @@ class LoginHandler(BaseHandler):
 
 class LogoutHandler(BaseHandler):
     def post(self):
-        # 删除数据库token
-        print("清除缓存token")
         user_id = self.get_user()
         UserToken.del_one(user_id)
         self.write_ok()

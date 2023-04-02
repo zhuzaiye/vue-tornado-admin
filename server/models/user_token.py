@@ -40,6 +40,3 @@ class UserToken(DB_cn.Model):
     def del_one(cls, user_id):
         cls.delete().where(cls.UserId == user_id).execute()
 
-
-if __name__ == '__main__':
-    UserToken.save_one(1, "123")

@@ -37,13 +37,3 @@ class User(DB_cn.Model):
     def update_by_id(cls, user_id, data):
         res = cls.update(**data).where(cls.Id == user_id).execute()
         return res
-
-
-if __name__ == '__main__':
-    # user = User().get_row({"Account": "hzzhu2@ifytek.com"})
-    # user = User().get_row_one("hzzhu2@ifytek.com")
-    # new_user = User()
-    # new_user.Account = "abc@123.com"
-    # new_user_id = new_user.create_one()
-    row = User.get_row("hzzhu2@ifytek.com")
-    print(row.Password)
