@@ -29,3 +29,5 @@ node_modules
 public/*
 .cache/
 server/public/*
+
+server/config/config_ignore.ini

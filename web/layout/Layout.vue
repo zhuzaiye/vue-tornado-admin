@@ -80,9 +80,12 @@ export default {
       if (command === 'person') {
         this.$router.push({name: 'MemberDetail'})
       } else {
-        logout();
-        localStorage.removeItem('token')
-        this.$router.push('/login')
+        logout().then(res=> {
+          if (res.msg === "ok") {
+          localStorage.removeItem('token')
+          this.$router.push('/login')
+        }
+        });
       }
     }
   },

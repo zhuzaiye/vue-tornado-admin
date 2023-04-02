@@ -22,7 +22,11 @@ axiosServer.interceptors.request.use(
     (config) => {
         // 如果开启 token 认证
         if (serverConfig.useTokenAuthorization) {
-            config.headers["Authorization"] = localStorage.getItem("token"); // 请求头携带 token
+            let token = localStorage.getItem('token');
+            if (token) {
+                config.headers["Authorization"] = localStorage.getItem("token"); // 请求头携带 token
+            }
+
         }
         if (config.method === 'post') {
             config.data = qs.stringify(config.data); // 序列化,比如表单数据
@@ -89,8 +93,7 @@ axiosServer.interceptors.response.use(
     (response) => {
         let data = response.data;
 
-        if (data.code !== 200) {
-            let errmsg = data.msg || 'Error';
+        if (data.code !== 200 || data.msg !== "ok") {
             Message({
                 message: data.msg || 'Error',
                 type: 'warning',
@@ -99,7 +102,6 @@ axiosServer.interceptors.response.use(
             return Promise.reject().then().catch();
         }
         return Promise.resolve(data);
-
     },
     (error) => {
         console.log('err: ' + error) // for debug

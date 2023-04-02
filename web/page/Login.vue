@@ -17,7 +17,6 @@
             </el-button>
           </el-form-item>
         </el-form>
-        <p class="tip">未登录过的新用户, 自动注册</p>
       </section>
     </transition>
   </div>
@@ -52,7 +51,6 @@ export default {
         this.$router.push({path: '/'})
       }).catch(err => {
         this.isLoading = false;
-        this.$message.error(err); //登录失败提示错误
       })
     }
   }
