@@ -16,7 +16,7 @@ venv/
 ENV/
 
 # node_modules
-node_modules
+web/node_modules
 
 # IDE config
 .vscode/
