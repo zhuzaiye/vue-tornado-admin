@@ -7,7 +7,7 @@ from handlers.user_handler import LoginHandler, LogoutHandler
 
 def router():
     routers = [
-        (r".*/api/login", LoginHandler),
-        (r".*/api/logout", LogoutHandler),
+        (r".*/user/login", LoginHandler),
+        (r".*/user/logout", LogoutHandler),
     ]
     return routers

@@ -1,6 +1,10 @@
-# Webpack5+vue2
+# vue-admin
 
-> [参考](https://segmentfault.com/a/1190000041548562)
+> vue2+vue-router+vuex+webpack5
 
 ## 框架搭建
+
+## 参考
+
+- [webpack5搭建vue环境](https://segmentfault.com/a/1190000041548562)
 

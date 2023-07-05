@@ -37,7 +37,7 @@ class PeeweeDB:
         self.config.setdefault("max_connections", 8)
         self.config.setdefault("stale_timeout", 300)
         # 使用连接池
-        self.db = RetryPooledMysql.get_db_instance(**self.config)
+        self.db = RetryPooledMysql.get_db_instance(self.config)
 
     def get_model_class(self):
         class BaseModel(Model):

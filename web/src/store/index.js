@@ -1,19 +1,23 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import app from './modules/app'
-import user from './modules/user'
-import permission from './modules/permission'
-import getters from './getters'
+// https://v3.vuex.vuejs.org/
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import {appModule, userModule} from './modules';
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  modules: {
-    app,
-    user,
-    permission
-  },
-  getters
+    state: {},
+    actions: {},
+    mutations: {},
+    modules: {
+        appModule,
+        userModule
+    },
+    getters: {}
 })
 
+
 export default store
+
+

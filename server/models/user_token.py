@@ -31,7 +31,7 @@ class UserToken(DB_cn.Model):
             user = cls.insert(UserId=user_id, Token=token,
                               ExpireAt=datetime.now() + timedelta(days=3),
                               CreatedAt=curr, UpdatedAt=curr).execute()
-            return user.UserId
+            return user
         else:
             cls.update(Token=token, ExpireAt=datetime.now() + timedelta(days=3), UpdatedAt=datetime.now()).where(
                 cls.UserId == user_id).execute()

@@ -54,16 +54,16 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
             // 图片处理
-            // {
-            //     test: /\.(jpg|jpeg|png|gif)$/,
-            //     use: ['url-loader']
-            // },
+            {
+                test: /\.(jpg|jpeg|png|gif)$/,
+                use: ['url-loader']
+            },
             // 字体处理
-            // {
-            //     test: /\.(eot|ttf|svg|woff|woff2)$/,
-            //     exclude: /(node_modules)/,
-            //     use: ['file-loader'],
-            // },
+            {
+                test: /\.(eot|ttf|svg|woff|woff2)$/,
+                exclude: /(node_modules)/,
+                use: ['file-loader'],
+            },
             // webpack5中已经废弃了 url-loader,打包图片可以使用 asset-module
             // 资源文件 webpack5 asset 处理
             // url('../assets/images/guang.png') 模式
@@ -92,8 +92,16 @@ module.exports = {
     },
     devServer: {
         open: true, // 自动打开浏览器
-        compress: true,  // 启用 gzip compression
-        port: 8008, // 指定监听请求的端口号,
+        proxy: { // 用于本地开发
+            '/api': {
+                target: 'http://localhost:8888',
+                secure: true,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': '',
+                },
+            }
+        },
     },
     // 配置 plugin
     plugins: [

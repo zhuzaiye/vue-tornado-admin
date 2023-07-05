@@ -1,21 +1,22 @@
-// main.js
-// 导入Vue.js
 import Vue from 'vue'
-// element-ui的全部组件 & element-ui的css
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import App from './App'
-import router from './router'
+// 前端路由
+import router from './router/router'
+// vuex store
 import store from './store'
+// element-ui的全部组件
+import ElementUI from 'element-ui'
+// element-ui的css和normalize.css
+import 'element-ui/lib/theme-chalk/index.css'
+import 'normalize.css/normalize.css' 
+import '@/style/index.scss' // global css
+// 客户端主程序
+import App from './App.vue'
 
+Vue.config.debug = true
 Vue.use(ElementUI)
 
-Vue.config.productionTip = false
-
-
-//runtime
 new Vue({
     router,
     store,
     render: h => h(App)
-}).$mount("#app");
+}).$mount('#app')
