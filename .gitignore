@@ -30,4 +30,4 @@ public/*
 .cache/
 server/public/*
 
-server/config/*
+server/config
