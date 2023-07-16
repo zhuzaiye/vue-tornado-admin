@@ -39,3 +39,10 @@ class LogoutHandler(BaseHandler):
         user_id = self.get_user()
         UserToken.del_one(user_id)
         self.write_ok()
+
+class GetUserHandler(BaseHandler):
+    """获取用户信息"""
+    def get(self):
+        user_id = self.get_user()
+        user = User.get_by_id(user_id)
+        self.write_ok({"role": user.Role, "avatar": ""})

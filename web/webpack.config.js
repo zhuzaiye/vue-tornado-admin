@@ -1,10 +1,13 @@
 const path = require('path');
 // 用于生成html文件，生成的文件会把项目依赖的js文件打包后加载进去
 // vue-template-compiler 解析vue中模板的工具, 必须于vue版本一致
+const defaultSettings = require('./src/settings.js')
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
+
+const name = defaultSettings.title // page title
 
 module.exports = {
     // 打包模式 默认开发模式
@@ -27,6 +30,10 @@ module.exports = {
             tools: '~/utils',
             'vue$': 'vue/dist/vue.esm.js'
         },
+        // path 在webpack5中的引入使用not found处理
+        fallback: {
+            "path": require.resolve("path-browserify")
+        },
         // 引入文件时省略后缀
         extensions: ['.js', '.scss', '.vue'],
     },
@@ -35,7 +42,7 @@ module.exports = {
         rules: [
             {
                 // 匹配js后缀文件
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 // 排除node_modules中的js
                 exclude: /node_modules/,
                 use: [
@@ -55,38 +62,41 @@ module.exports = {
             },
             // 图片处理
             {
-                test: /\.(jpg|jpeg|png|gif)$/,
+                test: /\.(jpg|jpeg|png|gif|svg)$/,
+                exclude: [path.resolve(__dirname, 'src/icons/svg')],
                 use: ['url-loader']
             },
             // 字体处理
             {
-                test: /\.(eot|ttf|svg|woff|woff2)$/,
+                test: /\.(eot|ttf|woff|woff2)$/,
                 exclude: /(node_modules)/,
                 use: ['file-loader'],
             },
-            // webpack5中已经废弃了 url-loader,打包图片可以使用 asset-module
-            // 资源文件 webpack5 asset 处理
-            // url('../assets/images/guang.png') 模式
+            // svg icon的自定义加载
             {
-                test: /\.(png|jpe?g|gif|svg|webp)$/,
-                type: "asset",
-                parser: {
-                    // 转base64的条件
-                    dataUrlCondition: {
-                        maxSize: 25 * 1024, // 25kb
-                    }
-                },
-                generator: {
-                    // 打包到 dist/images 文件下
-                    filename: 'images/[name].[hash:6].[ext]'
-                }
-            },
-            {
-                test: /\.(ttf|eot|woff|woff2|otf)$/i,
-                type: 'asset',
-                generator: {
-                    filename: 'fonts/[name].[hash:6].[ext]'
-                }
+                test: /\.svg$/,
+                include: [path.resolve(__dirname, 'src/icons/svg')],
+                use: [
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            symbolId: 'icon-[name]',
+                        },
+                    },
+                    // 移除svg的fill属性
+                    {
+                        loader: 'svgo-loader',
+                        options: {
+                            // 必须指定name！
+                            plugins: [
+                                {
+                                    name: 'removeAttrs',
+                                    params: { attrs: 'fill' },
+                                },
+                            ],
+                        },
+                    },
+                ],
             },
         ]
     },

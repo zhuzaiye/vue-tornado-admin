@@ -19,8 +19,8 @@ ENV/
 web/node_modules
 
 # IDE config
-.vscode/
-.idea
+web/.vscode
+server/.idea
 
 # mkdocs documentation
 /site
@@ -30,4 +30,4 @@ public/*
 .cache/
 server/public/*
 
-server/config/config_ignore.ini
+server/config/*

@@ -1,22 +1,33 @@
+// 引入vue2框架
 import Vue from 'vue'
-// 前端路由
-import router from './router/router'
-// vuex store
-import store from './store'
-// element-ui的全部组件
-import ElementUI from 'element-ui'
-// element-ui的css和normalize.css
-import 'element-ui/lib/theme-chalk/index.css'
-import 'normalize.css/normalize.css' 
-import '@/style/index.scss' // global css
-// 客户端主程序
-import App from './App.vue'
 
-Vue.config.debug = true
+// 引入element-ui以及normalize.css
+import 'normalize.css/normalize.css'
+
+// 引入element-ui以及
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+// 引入全局css
+import '@/styles/index.scss'
+
+// 引入app, store和router组件爱你
+import App from '@/App'
+import store from '@/store'
+import router from '@/router'
+
+// 引入权限控制组件
+import '@/permission'
+// 引入icon组件
+import '@/icons';
+
 Vue.use(ElementUI)
 
+Vue.config.productionTip = false
+
 new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app')
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
+})
